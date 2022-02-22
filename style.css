@@ -32,6 +32,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+
+/* para bloquear click caso ja for ocupado com x ou 0 */
+.cell.x,
+.cell.circle {
+    cursor: not-allowed;
 }
 
 .cell:nth-child(1),
@@ -58,6 +65,36 @@ body {
     border-bottom: none;
 }
 
+/* X */
+.cell.x::before,
+.cell.x::after {
+    content: "";
+    height: calc(150px * 0.10);
+    width: calc(150px * 0.8);
+    background: white;
+    position: absolute;
+    border-radius: 5px;
+}
+
+.cell.x::before {
+    transform: rotate(45deg);
+}
+.cell.x::after {
+    transform: rotate(-35deg);
+}
+
+/* Circle */
+.cell.circle::before,
+.cell.circle::after {
+    content: "";
+    height: calc(150px * 0.7);
+    width: calc(150px * 0.7);
+    background: white;
+    position: absolute;
+    border-radius: 50%;
+}
+
+/* winner msg */
 .winning-msg {
     display: none;
 }
