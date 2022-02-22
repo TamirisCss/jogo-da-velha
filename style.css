@@ -6,7 +6,7 @@
 
 body {
   height: 100vh;
-  width: 100vh;
+  width: 100vw;
   background: linear-gradient(
     90deg,
     rgb(179, 99, 168) 0%,
@@ -26,12 +26,36 @@ body {
 }
 
 .cell {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border: 2px solid white;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.cell:nth-child(1),
+.cell:nth-child(2),
+.cell:nth-child(3) {
+    border-top: none;
+}
+
+.cell:nth-child(1),
+.cell:nth-child(4),
+.cell:nth-child(7) {
+    border-left: none;
+}
+
+.cell:nth-child(3),
+.cell:nth-child(6),
+.cell:nth-child(9) {
+    border-right: none;
+}
+
+.cell:nth-child(7),
+.cell:nth-child(8),
+.cell:nth-child(9) {
+    border-bottom: none;
 }
 
 .winning-msg {
