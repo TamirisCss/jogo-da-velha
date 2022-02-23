@@ -25,6 +25,14 @@ body {
     grid-template-columns: repeat(3, auto);
 }
 
+/* dar transparencia no hover */
+.board.x .cell:not(.x):not(.circle):hover::after,
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
 .cell {
     width: 150px;
     height: 150px;
@@ -67,7 +75,9 @@ body {
 
 /* X */
 .cell.x::before,
-.cell.x::after {
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::after,
+.board.x .cell:not(.x):not(.circle):hover::before {
     content: "";
     height: calc(150px * 0.10);
     width: calc(150px * 0.8);
@@ -76,16 +86,20 @@ body {
     border-radius: 5px;
 }
 
-.cell.x::before {
+.cell.x::before,
+.board.x .cell:not(.x):not(.circle):hover::before {
     transform: rotate(45deg);
 }
-.cell.x::after {
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::after {
     transform: rotate(-35deg);
 }
 
 /* Circle */
 .cell.circle::before,
-.cell.circle::after {
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::after,
+.board.circle .cell:not(.x):not(.circle):hover::before {
     content: "";
     height: calc(150px * 0.7);
     width: calc(150px * 0.7);
