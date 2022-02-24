@@ -34,6 +34,8 @@ const endGame = (isDraw) => {
   } else {
     winnerMsgText.innerHTML = isCircleTurn ? "Circulo venceu!" : "X venceu";
   }
+
+  winningMsgDiv.classList.add("show-winner-msg");
 };
 
 // check the winner
@@ -74,7 +76,7 @@ const handleClick = (e) => {
   // check for the winner
   const isWin = checkForWin(classToAdd);
   if (isWin) {
-    endGame(true);
+    endGame(false);
   }
 
   //change symbol
