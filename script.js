@@ -20,17 +20,17 @@ let winnigCombinations = [
 
 //Game start with "X"
 const startGame = () => {
-    isCircleTurn = false;
-    
+  isCircleTurn = false;
+
   for (const cell of cellElements) {
-      cell.classList.remove("circle");
-      cell.classList.remove("x");
-      cell.removeEventListener("click", handleClick);
+    cell.classList.remove("circle");
+    cell.classList.remove("x");
+    cell.removeEventListener("click", handleClick);
     cell.addEventListener("click", handleClick, { once: true });
   }
 
   setBoardHoverClass();
-  winningMsgDiv.classList.remove("show-winner-msg")
+  winningMsgDiv.classList.remove("show-winner-msg");
 };
 
 //winner message
@@ -53,13 +53,19 @@ const checkForWin = (currentPlayer) => {
   });
 };
 
+const checkForDraw = () => {
+  return [...cellElements].every((cell) => {
+    return cell.classList.contains("x") || cell.classList.contains("circle");
+  });
+};
+
 const placeMark = (cell, classToAdd) => {
   //add "X" or "cricle"
   cell.classList.add(classToAdd);
 };
 
 const setBoardHoverClass = () => {
-    board.classList.remove("circle");
+  board.classList.remove("circle");
   board.classList.remove("x");
 
   if (isCircleTurn) {
@@ -67,7 +73,7 @@ const setBoardHoverClass = () => {
   } else {
     board.classList.add("x");
   }
-}
+};
 
 const swapTurns = () => {
   //change symbol
@@ -85,13 +91,19 @@ const handleClick = (e) => {
 
   // check for the winner
   const isWin = checkForWin(classToAdd);
+
+  //   check if is a draw
+  const isDraw = checkForDraw();
+
   if (isWin) {
     endGame(false);
+  } else if (isDraw) {
+    endGame(true);
+  } else {
+    //change symbol
+    swapTurns();
   }
-
-  //change symbol
-  swapTurns();
 };
 
 startGame();
-restartBtn.addEventListener("click", startGame)
+restartBtn.addEventListener("click", startGame);
