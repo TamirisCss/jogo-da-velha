@@ -2,6 +2,7 @@ const cellElements = document.querySelectorAll("[data-cell]");
 const board = document.querySelector("[data-board]");
 const winningMsgDiv = document.querySelector("[data-winning-msg]");
 const winnerMsgText = document.querySelector("[data-winner-msg]");
+const restartBtn = document.querySelector("[data-restart-btn]");
 
 let isCircleTurn;
 
@@ -19,12 +20,17 @@ let winnigCombinations = [
 
 //Game start with "X"
 const startGame = () => {
+    isCircleTurn = false;
+    
   for (const cell of cellElements) {
+      cell.classList.remove("circle");
+      cell.classList.remove("x");
+      cell.removeEventListener("click", handleClick);
     cell.addEventListener("click", handleClick, { once: true });
   }
 
-  isCircleTurn = false;
-  board.classList.add("x");
+  setBoardHoverClass();
+  winningMsgDiv.classList.remove("show-winner-msg")
 };
 
 //winner message
@@ -32,7 +38,7 @@ const endGame = (isDraw) => {
   if (isDraw) {
     winnerMsgText.innerText = "Empate";
   } else {
-    winnerMsgText.innerHTML = isCircleTurn ? "Circulo venceu!" : "X venceu";
+    winnerMsgText.innerHTML = isCircleTurn ? "O venceu!" : "X venceu";
   }
 
   winningMsgDiv.classList.add("show-winner-msg");
@@ -52,11 +58,8 @@ const placeMark = (cell, classToAdd) => {
   cell.classList.add(classToAdd);
 };
 
-const swapTurns = () => {
-  //change symbol
-  isCircleTurn = !isCircleTurn;
-
-  board.classList.remove("circle");
+const setBoardHoverClass = () => {
+    board.classList.remove("circle");
   board.classList.remove("x");
 
   if (isCircleTurn) {
@@ -64,6 +67,13 @@ const swapTurns = () => {
   } else {
     board.classList.add("x");
   }
+}
+
+const swapTurns = () => {
+  //change symbol
+  isCircleTurn = !isCircleTurn;
+
+  setBoardHoverClass();
 };
 
 const handleClick = (e) => {
@@ -84,3 +94,4 @@ const handleClick = (e) => {
 };
 
 startGame();
+restartBtn.addEventListener("click", startGame)
